@@ -1,0 +1,205 @@
+﻿@model TCC___Obra.Models.Obra
+@using Microsoft.AspNetCore.Http
+
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Obra</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Nome da Obra -->
+            <div class="form-group">
+                <label asp-for="NomeObra" class="control-label"></label>
+                <input asp-for="NomeObra" class="form-control" />
+                <span asp-validation-for="NomeObra" class="text-danger"></span>
+            </div>
+
+            <!-- Nome do Cliente -->
+            <div class="form-group">
+                <label asp-for="NomeCliente" class="control-label"></label>
+                <input asp-for="NomeCliente" class="form-control" />
+                <span asp-validation-for="NomeCliente" class="text-danger"></span>
+            </div>
+
+            <!-- Tipo Pessoa (Pessoa Física ou Razão Social) -->
+            <div class="form-group">
+                <label asp-for="TipoPessoa" class="control-label"></label>
+                <select asp-for="TipoPessoa" class="form-control" id="TipoPessoa" onchange="togglePessoa()">
+                    <option value="Fisica">Pessoa Física</option>
+                    <option value="Juridica">Razão Social</option>
+                </select>
+                <span asp-validation-for="TipoPessoa" class="text-danger"></span>
+            </div>
+
+            <!-- CPF -->
+            <div class="form-group" id="cpfDiv">
+                <label asp-for="Cpf" class="control-label"></label>
+                <input asp-for="Cpf" class="form-control" id="Cpf" autocomplete="off" />
+                <span asp-validation-for="Cpf" class="text-danger"></span>
+            </div>
+
+            <!-- CNPJ -->
+            <div class="form-group" id="cnpjDiv" style="display:none;">
+                <label asp-for="Cnpj" class="control-label"></label>
+                <input asp-for="Cnpj" class="form-control" id="Cnpj" autocomplete="off" />
+                <span asp-validation-for="Cnpj" class="text-danger"></span>
+            </div>
+
+            <!-- E-mail -->
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <!-- Telefone -->
+            <div class="form-group">
+                <label asp-for="Telefone" class="control-label"></label>
+                <input asp-for="Telefone" class="form-control" id="Telefone" />
+                <span asp-validation-for="Telefone" class="text-danger"></span>
+            </div>
+
+            <!-- Localização -->
+            <div class="form-group">
+                <label asp-for="Localizacao" class="control-label"></label>
+                <input asp-for="Localizacao" class="form-control" />
+                <span asp-validation-for="Localizacao" class="text-danger"></span>
+            </div>
+
+            <!-- Status da Obra -->
+            <div class="form-group">
+                <label asp-for="StatusObra" class="control-label"></label>
+                <select asp-for="StatusObra" class="form-control">
+                    <option value="">Selecione o Status</option>
+                    <option value="Início breve">Início breve</option>
+                    <option value="Em andamento">Em andamento</option>
+                    <option value="Finalizada">Finalizada</option>
+                </select>
+                <span asp-validation-for="StatusObra" class="text-danger"></span>
+            </div>
+
+            <!-- Data de Início -->
+            <div class="form-group">
+                <label asp-for="DtInicio" class="control-label"></label>
+                <input asp-for="DtInicio" class="form-control" />
+                <span asp-validation-for="DtInicio" class="text-danger"></span>
+            </div>
+
+            <!-- Data Estimada de Término -->
+            <div class="form-group">
+                <label asp-for="DtEstimada" class="control-label"></label>
+                <input asp-for="DtEstimada" class="form-control" />
+                <span asp-validation-for="DtEstimada" class="text-danger"></span>
+            </div>
+
+            <!-- Responsável pela Obra -->
+            <div class="form-group">
+                <label asp-for="RespObra" class="control-label"></label>
+                <input asp-for="RespObra" class="form-control" />
+                <span asp-validation-for="RespObra" class="text-danger"></span>
+            </div>
+
+            <!-- Foto da Obra -->
+            <div class="form-group">
+                <label class="control-label">Foto da Obra</label>
+                <input type="file" name="FotoArquivo" class="form-control" />
+            </div>
+
+
+            <!-- Botão de Enviar -->
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<script>
+    // Função para alternar entre CPF e CNPJ
+    function togglePessoa() {
+        var tipoPessoa = document.getElementById("TipoPessoa").value;
+
+        if (tipoPessoa === "Fisica") {
+            document.getElementById("cpfDiv").style.display = "block";
+            document.getElementById("cnpjDiv").style.display = "none";
+        } else {
+            document.getElementById("cpfDiv").style.display = "none";
+            document.getElementById("cnpjDiv").style.display = "block";
+            formatarCNPJ(); // Chama a função de formatação quando o CNPJ for exibido
+        }
+    }
+
+    // Função para formatar o CPF
+    function formatarCPF(cpf) {
+        cpf = cpf.replace(/\D/g, ""); // Remove tudo que não for número
+        cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2"); // Adiciona o primeiro ponto
+        cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2"); // Adiciona o segundo ponto
+        cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2"); // Adiciona o traço
+        return cpf;
+    }
+
+    // Função para formatar o CNPJ
+    function formatarCNPJ() {
+        var cnpjInput = document.getElementById("Cnpj");
+        cnpjInput.addEventListener("input", function () {
+            var cnpj = cnpjInput.value.replace(/\D/g, ""); // Remove tudo que não for número
+            cnpj = cnpj.replace(/^(\d{2})(\d)/, "$1.$2"); // Adiciona o primeiro ponto
+            cnpj = cnpj.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3"); // Adiciona o segundo ponto
+            cnpj = cnpj.replace(/\.(\d{3})(\d)/, ".$1/$2"); // Adiciona a barra
+            cnpj = cnpj.replace(/(\d{4})(\d{1,2})$/, "$1-$2"); // Adiciona o traço
+            cnpjInput.value = cnpj; // Atualiza o valor do campo
+        });
+    }
+
+    // Função para formatar o Telefone
+    function formatarTelefone() {
+        var telefoneInput = document.getElementById("Telefone");
+        telefoneInput.addEventListener("input", function () {
+            var telefone = telefoneInput.value.replace(/\D/g, ""); // Remove tudo que não for número
+            telefone = telefone.replace(/^(\d{2})(\d)/, "($1) $2"); // Adiciona o parêntese no DDD
+            telefone = telefone.replace(/(\d{5})(\d{1,4})$/, "$1-$2"); // Adiciona o traço
+            telefoneInput.value = telefone; // Atualiza o valor do campo
+        });
+    }
+
+    // Função para identificar o tipo de pessoa e formatar o CPF ou CNPJ
+    function formatarDocumento() {
+        var tipoPessoa = document.getElementById("TipoPessoa").value;
+        if (tipoPessoa === "Fisica") {
+            document.getElementById("Cpf").addEventListener("input", function () {
+                var valor = this.value.replace(/\D/g, ""); // Remove tudo que não for número
+                this.value = formatarCPF(valor);
+            });
+        } else if (tipoPessoa === "Juridica") {
+            document.getElementById("Cnpj").addEventListener("input", function () {
+                var valor = this.value.replace(/\D/g, ""); // Remove tudo que não for número
+                this.value = formatarCNPJ(valor);
+            });
+        }
+    }
+
+    // Chama a função ao carregar a página
+    window.onload = function () {
+        formatarDocumento();
+        formatarTelefone(); // Adiciona a formatação para o telefone
+        togglePessoa(); // Já chama a função para configurar o estado correto do CPF e CNPJ
+    };
+</script>

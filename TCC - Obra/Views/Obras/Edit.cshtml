@@ -1,0 +1,103 @@
+﻿@model TCC___Obra.Models.Obra
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Obra</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ObraId" />
+            <div class="form-group">
+                <label asp-for="NomeObra" class="control-label"></label>
+                <input asp-for="NomeObra" class="form-control" />
+                <span asp-validation-for="NomeObra" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NomeCliente" class="control-label"></label>
+                <input asp-for="NomeCliente" class="form-control" />
+                <span asp-validation-for="NomeCliente" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TipoPessoa" class="control-label"></label>
+                <input asp-for="TipoPessoa" class="form-control" />
+                <span asp-validation-for="TipoPessoa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cpf" class="control-label"></label>
+                <input asp-for="Cpf" class="form-control" />
+                <span asp-validation-for="Cpf" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cnpj" class="control-label"></label>
+                <input asp-for="Cnpj" class="form-control" />
+                <span asp-validation-for="Cnpj" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Telefone" class="control-label"></label>
+                <input asp-for="Telefone" class="form-control" />
+                <span asp-validation-for="Telefone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Localizacao" class="control-label"></label>
+                <input asp-for="Localizacao" class="form-control" />
+                <span asp-validation-for="Localizacao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StatusObra" class="control-label"></label>
+                <input asp-for="StatusObra" class="form-control" />
+                <span asp-validation-for="StatusObra" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DtInicio" class="control-label"></label>
+                <input asp-for="DtInicio" class="form-control" />
+                <span asp-validation-for="DtInicio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DtEstimada" class="control-label"></label>
+                <input asp-for="DtEstimada" class="form-control" />
+                <span asp-validation-for="DtEstimada" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RespObra" class="control-label"></label>
+                <input asp-for="RespObra" class="form-control" />
+                <span asp-validation-for="RespObra" class="text-danger"></span>
+            </div>
+            <!-- Mostra a imagem atual da obra -->
+            @if (!string.IsNullOrEmpty(Model.FotoObra))
+            {
+                <div class="form-group">
+                    <label>Imagem atual:</label><br />
+                    <img src="@Model.FotoObra" alt="Imagem da Obra" style="max-width: 200px; max-height: 200px;" />
+                </div>
+            }
+
+            <!-- Campo para fazer upload de nova imagem -->
+            <div class="form-group">
+                <label class="control-label">Nova imagem (opcional)</label>
+                <input type="file" name="FotoArquivo" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

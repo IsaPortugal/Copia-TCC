@@ -1,0 +1,59 @@
+﻿@model IEnumerable<TCC___Obra.Models.Agendamento>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table" id="Table-Agendamento">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataAgendamento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hora)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DescricaoAgendamento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.DataAgendamento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hora)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.DescricaoAgendamento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.AgendamentoId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.AgendamentoId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.AgendamentoId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

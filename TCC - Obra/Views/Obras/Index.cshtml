@@ -1,0 +1,107 @@
+﻿@model IEnumerable<TCC___Obra.Models.Obra>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table" id="Table-Obra">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeObra)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeCliente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoPessoa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cpf)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cnpj)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Localizacao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StatusObra)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DtInicio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DtEstimada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RespObra)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FotoObra)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeObra)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoPessoa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cpf)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cnpj)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Localizacao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatusObra)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DtInicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DtEstimada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RespObra)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FotoObra)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ObraId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ObraId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ObraId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
